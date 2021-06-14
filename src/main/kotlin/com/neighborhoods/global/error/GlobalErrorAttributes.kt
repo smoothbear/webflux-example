@@ -4,6 +4,7 @@ import org.springframework.boot.web.error.ErrorAttributeOptions
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.server.ResponseStatusException
 
 @Component
 class GlobalErrorAttributes : DefaultErrorAttributes() {
@@ -19,11 +20,20 @@ class GlobalErrorAttributes : DefaultErrorAttributes() {
             map["error"] = ex.status.reasonPhrase
 
             return map
+        } else if (getError(request) is ResponseStatusException) {
+            val ex = getError(request) as ResponseStatusException
+
+            map["exception"] = ex.javaClass.simpleName
+            map["message"] = ex.message
+            map["status"] = ex.status.value()
+            map["error"] = ex.status.reasonPhrase
+
+            return map
         }
 
         map["exception"] = "SystemException"
         map["message"] = "System Error , Check logs!"
-        map["status"] = "500"
+        map["status"] = 500
         map["error"] = " System Error "
 
         return map

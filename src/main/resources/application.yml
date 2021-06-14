@@ -9,6 +9,5 @@ spring:
       auto-index-creation: true
       authentication-database: admin
 
-security:
-  jwt:
-    secret: ${JWT_SECRET}
+jwt:
+  secret: ${JWT_SECRET}
