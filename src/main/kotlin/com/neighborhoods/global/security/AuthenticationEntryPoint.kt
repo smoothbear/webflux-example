@@ -17,9 +17,10 @@ class AuthenticationEntryPoint : ServerAuthenticationEntryPoint {
         exchange.response.statusCode = HttpStatus.UNAUTHORIZED
         exchange.response.headers.contentType = MediaType.APPLICATION_JSON
 
-        log.error("Error at ${exchange.request.path}, status 401, cause: Not authenticated.")
+        log.error("Error at ${exchange.request.path}, status: 401, cause: Not authenticated.")
 
         val str = "{\n" +
+                "  \"path\": \"${exchange.request.path}\",\n" +
                 "  \"status\": 401,\n" +
                 "  \"message\": \"Not authenticated.\"\n" +
                 "}"
