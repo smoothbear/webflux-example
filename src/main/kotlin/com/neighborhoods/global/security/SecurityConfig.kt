@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
+import org.springframework.security.web.server.authentication.ServerAuthenticationFailureHandler
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers
 
 @EnableWebFluxSecurity
@@ -21,19 +22,22 @@ class SecurityConfig(
     val jwtProperties: JwtProperties
 ) {
     @Bean
-    fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+    fun filterChain(http: ServerHttpSecurity, jwtAuthenticationFilter: AuthenticationWebFilter): SecurityWebFilterChain {
         http
             .httpBasic().disable()
             .formLogin().disable()
             .logout().disable()
             .csrf { csrf -> csrf.disable() }
             .cors { cors -> cors.disable() }
+            .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+            .exceptionHandling()
+            .authenticationEntryPoint(AuthenticationEntryPoint())
+            .and()
             .authorizeExchange { exchanges ->
                 exchanges.pathMatchers(HttpMethod.POST, "/auth").permitAll()
                 exchanges.pathMatchers(HttpMethod.POST, "/user").permitAll()
                 exchanges.anyExchange().authenticated()
             }
-            .addFilterAt(bearerAuthenticationFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
 
         return http.build()
     }
@@ -43,7 +47,8 @@ class SecurityConfig(
         return BCryptPasswordEncoder()
     }
 
-    private fun bearerAuthenticationFilter(): AuthenticationWebFilter {
+    @Bean
+    fun authenticationWebFilter(): AuthenticationWebFilter {
         val authenticationFilter: AuthenticationWebFilter
 
         val bearerConverter: ServerAuthenticationConverter

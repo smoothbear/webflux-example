@@ -8,7 +8,7 @@ import com.neighborhoods.global.security.jwt.exception.InvalidTokenException
 import reactor.core.publisher.Mono
 
 class JwtVerifier(
-    val properties: JwtProperties
+    private val properties: JwtProperties
 ) {
     fun check(accessToken: String): Mono<DecodedJWT> {
         return Mono.just(JWT.require(Algorithm.HMAC256(properties.secret)))

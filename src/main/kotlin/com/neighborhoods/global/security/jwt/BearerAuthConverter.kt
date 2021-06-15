@@ -1,6 +1,5 @@
 package com.neighborhoods.global.security.jwt
 
-import com.neighborhoods.global.security.jwt.exception.AuthorizationHeaderNeeded
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
@@ -24,7 +23,6 @@ class BearerAuthConverter(
     override fun convert(exchange: ServerWebExchange): Mono<Authentication> {
         return Mono.justOrEmpty(exchange)
             .flatMap { ex -> extract(ex) }
-            .switchIfEmpty(Mono.error(AuthorizationHeaderNeeded()))
             .filter { authValue -> authValue.length > BEARER.length }
             .flatMap { authValue -> Mono.justOrEmpty(authValue.substring(BEARER.length)) }
             .flatMap { value -> jwtVerifier.check(value) }
