@@ -34,8 +34,20 @@ class SecurityConfig(
             .authenticationEntryPoint(AuthenticationEntryPoint())
             .and()
             .authorizeExchange { exchanges ->
+                // API access control
                 exchanges.pathMatchers(HttpMethod.POST, "/auth").permitAll()
                 exchanges.pathMatchers(HttpMethod.POST, "/user").permitAll()
+
+                // For swagger-ui
+                exchanges.pathMatchers("/api-docs*").permitAll()
+                exchanges.pathMatchers("/webjars/**").permitAll()
+                exchanges.pathMatchers("/v3/**").permitAll()
+
+                // For actuator
+                exchanges.pathMatchers("/monitor").permitAll()
+                exchanges.pathMatchers("/monitor/**").permitAll()
+
+                // Any paths will be authenticated
                 exchanges.anyExchange().authenticated()
             }
 

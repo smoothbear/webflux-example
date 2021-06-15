@@ -9,5 +9,18 @@ spring:
       auto-index-creation: true
       authentication-database: admin
 
+springdoc:
+  packages-to-scan: com.neighborhoods
+  # swagger-ui path
+  swagger-ui:
+    path: /api-docs
+
 jwt:
   secret: ${JWT_SECRET}
+
+management:
+  endpoints:
+    web:
+      base-path: /monitor
+      exposure:
+        include: health, metrics, env
