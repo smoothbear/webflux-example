@@ -30,3 +30,7 @@ management:
     export:
       prometheus:
         enabled: true
+      influx:
+        retention-shard-duration:
+    enable:
+      all: true
