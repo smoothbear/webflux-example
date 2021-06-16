@@ -29,6 +29,7 @@ dependencies {
     implementation("com.auth0:mvc-auth-commons:1.+")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.9")
     implementation("org.springframework.boot:spring-boot-starter-actuator:2.5.1")
+    implementation("io.micrometer:micrometer-registry-prometheus:latest.release")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.security:spring-security-test")

@@ -19,8 +19,19 @@ jwt:
   secret: ${JWT_SECRET}
 
 management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
   endpoints:
     web:
       base-path: /monitor
       exposure:
-        include: health, metrics, env
+        include: "*"
+
+  metrics:
+    export:
+      prometheus:
+        enabled: true
