@@ -1,13 +1,8 @@
 spring:
   data:
     mongodb:
-      host: ${DATABASE_HOST}
-      port: ${DATABASE_PORT:27017}
-      database: neighborhoods
-      username: ${DATABASE_USER}
-      password: ${DATABASE_PASSWORD}
       auto-index-creation: true
-      authentication-database: admin
+      uri: ${DATABASE_URI}
 
 springdoc:
   packages-to-scan: com.neighborhoods
