@@ -16,10 +16,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.5.1")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive:2.5.1")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.1")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.5.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -28,8 +28,8 @@ dependencies {
     implementation("javax.servlet:javax.servlet-api:3.1.0")
     implementation("com.auth0:mvc-auth-commons:1.+")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.9")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:2.5.1")
-    implementation("io.micrometer:micrometer-registry-prometheus:latest.release")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("io.micrometer:micrometer-registry-prometheus")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.security:spring-security-test")

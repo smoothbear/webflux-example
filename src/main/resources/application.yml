@@ -15,9 +15,11 @@ jwt:
 
 management:
   endpoint:
-    metrics:
-      enabled: true
+    shutdown:
+      enabled: false
     prometheus:
+      enabled: true
+    metrics:
       enabled: true
 
   endpoints:
@@ -30,8 +32,6 @@ management:
     export:
       prometheus:
         enabled: true
-      influx:
-        retention-shard-duration:
-    # Do not set this option. prefer to enable.all: false & enable.jvm: true
-    enable:
-      all: true
+
+    distribution:
+      percentiles-histogram.http.server.requests: true
